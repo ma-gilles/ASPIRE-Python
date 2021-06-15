@@ -455,9 +455,8 @@ class WeightedVolumesEstimatorTestCase(TestCase):
             * self.r
         )
 
-        logger.info(f"max abs diff: {np.max(np.abs(x - ref))}")
-
-        self.assertTrue(np.allclose(x, ref, atol=1e-4))
+        logger.info(f"max abs diff: {np.max(np.abs(x.flatten() - ref))}")
+        self.assertTrue(np.allclose(x.flatten(), ref, atol=1e-4))
 
     # @pytest.mark.xfail(reason="No Implemented Yet", raises=NotImplementedError)
     def testOptimize2(self):

@@ -76,7 +76,7 @@ class Estimator:
         if b_coeff is None:
             b_coeff = self.src_backward()
         est_coeff = self.conj_grad(b_coeff, tol=tol)
-        est = self.basis.evaluate(est_coeff)
+        est = np.transpose(self.basis.evaluate(est_coeff), (0,3,2,1))
 
         return Volume(est)
 
