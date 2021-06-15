@@ -118,7 +118,6 @@ class WeightedVolumesEstimator(MeanEstimator):
 
     def src_backward(self):
         # src_vols_wt_backward
-
         mean_b = np.zeros((self.r, self.L, self.L, self.L), dtype=self.dtype)
 
         for k in range(self.r):
@@ -126,6 +125,7 @@ class WeightedVolumesEstimator(MeanEstimator):
                 im = self.src.images(i, self.batch_size)
 
                 batch_mean_b = self.src.im_backward(im, i, self.weights[:, k]) / self.n
+
                 mean_b[k] += batch_mean_b.astype(self.dtype)
 
         res = np.sqrt(self.n) * self.basis.evaluate_t(mean_b)
