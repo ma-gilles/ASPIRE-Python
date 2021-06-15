@@ -232,6 +232,7 @@ class ImageSource:
         self.set_metadata(
             ["_rlnAngleRot", "_rlnAngleTilt", "_rlnAnglePsi"], np.rad2deg(values)
         )
+        self._rotations_set = True
 
     @rots.setter
     def rots(self, values):
@@ -245,6 +246,7 @@ class ImageSource:
             ["_rlnAngleRot", "_rlnAngleTilt", "_rlnAnglePsi"],
             self._rotations.as_euler("ZYZ", degrees=True),
         )
+        self._rotations_set = True
 
     def set_metadata(self, metadata_fields, values, indices=None):
         """

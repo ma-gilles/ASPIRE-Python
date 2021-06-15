@@ -18,6 +18,13 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), "saved_test_data")
 logger = logging.getLogger(__name__)
 
 
+from aspire.basis import FBBasis3D
+from aspire.image import Image
+from aspire.reconstruction import MeanEstimator
+from aspire.source import ArrayImageSource, Simulation
+
+DATA_DIR = os.path.join(os.path.dirname(__file__), "saved_test_data")
+
 class ImageTestCase(TestCase):
     def setUp(self):
         self.dtype = np.float32
@@ -156,8 +163,13 @@ class ImageTestCase(TestCase):
         Test ArrayImageSource `rots` property, setter and getter function.
         """
 
+        # Run estimator with a Simulation source as a reference.
+        sim_estimator = MeanEstimator(self.sim, self.basis, preconditioner="none")
+        sim_est = sim_estimator.estimate()
+        logger.info("Simulation source checkpoint")
+
         # Construct the source for testing
-        src = ArrayImageSource(self.im)
+        src = ArrayImageSource(self.im, angles=self.sim.angles)
 
         # Get some random angles, can use from sim.
         angles = self.sim.angles

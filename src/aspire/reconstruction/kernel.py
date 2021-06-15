@@ -200,7 +200,6 @@ class FourierKernelMat(FourierKernel):
         N = x.shape[0]
         kernel_f = self.kermat[k, j, ..., np.newaxis]
         N_ker = kernel_f.shape[0]
-
         x, sz_roll = unroll_dim(x, 4)
         ensure(
             x.shape[0] == x.shape[1] == x.shape[2] == N, "Volumes in x must be cubic"
