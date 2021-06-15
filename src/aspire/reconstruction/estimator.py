@@ -76,7 +76,7 @@ class Estimator:
         if b_coeff is None:
             b_coeff = self.src_backward()
         est_coeff = self.conj_grad(b_coeff, tol=tol)
-        est = self.basis.evaluate(est_coeff).T
+        est = self.basis.evaluate(est_coeff)
 
         return Volume(est)
 
@@ -135,7 +135,7 @@ class Estimator:
 
         if info != 0:
             raise RuntimeError("Unable to converge!")
-        return x
+        return x.reshape(-1, self.basis.count)
 
     def apply_kernel(self, vol_coeff, kernel=None):
         """

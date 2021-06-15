@@ -174,7 +174,7 @@ class WeightedVolumesEstimator(MeanEstimator):
 
         # Thinking might be clearer if r x ... but would need to mess with roll/unroll in FBB.
         # return x.reshape(self.r, -1)
-        return x
+        return x.reshape(self.r, self.basis.count)
 
     def apply_kernel(self, vol_coeff, kernel=None):
         """
