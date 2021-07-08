@@ -212,28 +212,17 @@ class MeanEstimator(WeightedVolumesEstimator):
         weights = np.ones((src.n, 1)) / np.sqrt(src.n)
         super().__init__(weights, src, basis, **kwargs)
 
-    # def __getattr__(self, name):
-    #     return .__getattr__(name)
     def __getattr__(self, name):
-        """Lazy attributes instantiated on first-access"""
+        """
+        See `Estimator.__getattr__`.
+        """
+        return super(WeightedVolumesEstimator, self).__getattr__(name)
 
-        if name == "kernel":
-            logger.info("Computing kernel")
-            kernel = self.kernel = self.compute_kernel()
-            return kernel
-
-        elif name == "precond_kernel":
-            if self.preconditioner == "circulant":
-                logger.info("Computing Preconditioner kernel")
-                precond_kernel = self.precond_kernel = FourierKernel(
-                    1.0 / self.kernel.circularize(), centered=True
-                )
-            else:
-                precond_kernel = self.precond_kernel = None
-            return precond_kernel
-
-        else:
-            raise AttributeError(name)
+    def apply_kernel(self, *args, **kwargs):
+        """
+        See `Estimator.apply_kernel`.
+        """
+        return super(WeightedVolumesEstimator, self).apply_kernel(*args, **kwargs)
 
     def compute_kernel(self):
         _2L = 2 * self.L
@@ -270,19 +259,3 @@ class MeanEstimator(WeightedVolumesEstimator):
         kernel_f = np.real(kernel_f)
 
         return FourierKernel(kernel_f, centered=False)
-
-    def apply_kernel(self, vol_coeff, kernel=None):
-        """
-        Applies the kernel represented by convolution
-        :param vol_coeff: The volume to be convolved, stored in the basis coefficients.
-        :param kernel: a Kernel object. If None, the kernel for this Estimator is used.
-        :return: The result of evaluating `vol_coeff` in the given basis, convolving with the kernel given by
-            kernel, and backprojecting into the basis.
-        """
-        if kernel is None:
-            kernel = self.kernel
-        vol = self.basis.evaluate(vol_coeff)
-        vol = kernel.convolve_volume(vol)
-        vol = self.basis.evaluate_t(vol)
-
-        return vol
