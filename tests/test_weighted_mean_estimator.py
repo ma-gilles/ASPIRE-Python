@@ -129,8 +129,8 @@ class WeightedVolumesEstimatorTestCase(TestCase):
             ]
         )
 
-        logger.info(f"max abs diff: {np.max(np.abs(a - b))}")
-        self.assertTrue(np.allclose(a, b, atol=1e-5))
+        logger.info(f"max abs diff: {np.max(np.abs(a[0]/self.n - b))}")
+        self.assertTrue(np.allclose(a[0]/self.n, b, atol=1e-5))
 
     def testAdjoint(self):
         mean_b_coeff = self.estimator.src_backward().squeeze()
@@ -455,8 +455,8 @@ class WeightedVolumesEstimatorTestCase(TestCase):
             * self.r
         )
 
-        logger.info(f"max abs diff: {np.max(np.abs(x.flatten() - ref))}")
-        self.assertTrue(np.allclose(x.flatten(), ref, atol=1e-4))
+        logger.info(f"max abs diff: {np.max(np.abs(x.flatten()/self.n - ref))}")
+        self.assertTrue(np.allclose(x.flatten()/self.n, ref, atol=1e-4))
 
     # @pytest.mark.xfail(reason="No Implemented Yet", raises=NotImplementedError)
     def testOptimize2(self):
