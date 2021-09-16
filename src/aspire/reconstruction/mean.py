@@ -93,7 +93,7 @@ class WeightedVolumesEstimator(Estimator):
 
                     kernel[k, j] += (
                         1
-                        / (self.n * self.L ** 4)
+                        / (self.L ** 4)
                         * anufft(weights, pts_rot, (_2L, _2L, _2L), real=True)
                     )
 
