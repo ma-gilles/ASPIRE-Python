@@ -20,20 +20,20 @@ class WeightedVolumesEstimatorTestCase(TestCase):
         self.dtype = np.float32
         self.n = 1024
         self.r = 2
-        sim = Simulation(
+        self.sim = Simulation(
             n=self.n,
             unique_filters=[
                 RadialCTFFilter(defocus=d) for d in np.linspace(1.5e4, 2.5e4, 7)
             ],
             dtype=self.dtype,
         )
-        basis = FBBasis3D((8, 8, 8), dtype=self.dtype)
+        self.basis = FBBasis3D((8, 8, 8), dtype=self.dtype)
         self.weights = np.ones((self.n, self.r)) / np.sqrt(self.n)
         self.estimator = WeightedVolumesEstimator(
-            self.weights, sim, basis, preconditioner="none"
+            self.weights, self.sim, self.basis, preconditioner="none"
         )
         self.estimator_with_preconditioner = WeightedVolumesEstimator(
-            self.weights, sim, basis, preconditioner="circulant"
+            self.weights, self.sim, self.basis, preconditioner="circulant"
         )
 
     def tearDown(self):
@@ -676,3 +676,110 @@ class WeightedVolumesEstimatorTestCase(TestCase):
                     atol=1e-4,
                 )
             )
+
+    def testEstimateNegWeight(self):
+        """
+        Here we'll test createing two volumes.
+        One with positive and another with negative weights.
+        """
+        weights = np.ones((self.n, self.r)) / np.sqrt(self.n)
+        weights[:, 1] *= -1  # negate second set of weights
+
+        estimator = WeightedVolumesEstimator(
+            weights, self.sim, self.basis, preconditioner="none"
+        )
+
+        estimate = estimator.estimate()
+
+        a0 = estimate[0][:, :, 4]
+        a1 = estimate[1][:, :, 4]
+
+        b = np.array(
+            [
+                [
+                    +0.00000000,
+                    +0.00000000,
+                    +0.00000000,
+                    +0.00000000,
+                    -0.00000000,
+                    +0.00000000,
+                    +0.00000000,
+                    +0.00000000,
+                ],
+                [
+                    +0.00000000,
+                    +0.00000000,
+                    +0.02446793,
+                    +0.05363505,
+                    +0.21988572,
+                    +0.19513786,
+                    +0.01174418,
+                    +0.00000000,
+                ],
+                [
+                    +0.00000000,
+                    -0.06168774,
+                    +0.13178457,
+                    +0.36011154,
+                    +0.88632372,
+                    +0.92307694,
+                    +0.45524491,
+                    +0.15142541,
+                ],
+                [
+                    +0.00000000,
+                    -0.09108749,
+                    +0.19564009,
+                    +0.78325885,
+                    +2.34527692,
+                    +2.44817345,
+                    +1.41268619,
+                    +0.53634876,
+                ],
+                [
+                    +0.00000000,
+                    +0.07150180,
+                    +0.38347393,
+                    +1.70868980,
+                    +3.78134981,
+                    +3.03582139,
+                    +1.49942724,
+                    +0.52104809,
+                ],
+                [
+                    +0.00000000,
+                    +0.00736866,
+                    +0.19239950,
+                    +1.71596036,
+                    +3.59823119,
+                    +2.64081679,
+                    +1.08514933,
+                    +0.24995637,
+                ],
+                [
+                    +0.00000000,
+                    +0.11075829,
+                    +0.43197553,
+                    +0.82667320,
+                    +1.51163241,
+                    +1.25342639,
+                    +0.36478594,
+                    -0.00464912,
+                ],
+                [
+                    +0.00000000,
+                    +0.00000000,
+                    +0.43422818,
+                    +0.64440739,
+                    +0.44137408,
+                    +0.25311494,
+                    +0.00011242,
+                    +0.00000000,
+                ],
+            ]
+        )
+
+        logger.info(f"max abs diff: {np.max(np.abs(a0 - b))}")
+        self.assertTrue(np.allclose(a0, b, atol=1e-5))
+        logger.info(f"max abs diff: {np.max(np.abs(-a1 - b))}")
+        self.assertTrue(np.allclose(-a1, b, atol=1e-5))  # negative weights

@@ -85,7 +85,8 @@ class WeightedVolumesEstimator(Estimator):
                         weights[0, :, :] = 0
                         weights[:, 0, :] = 0
 
-                    weights *= (self.weights[_range, j] * self.weights[_range, k]
+                    weights *= (
+                        self.weights[_range, j] * self.weights[_range, k]
                     ).reshape(1, 1, len(_range))
 
                     pts_rot = m_reshape(pts_rot, (3, -1))
