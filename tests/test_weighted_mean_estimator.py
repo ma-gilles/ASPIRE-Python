@@ -39,7 +39,7 @@ class WeightedVolumesEstimatorTestCase(TestCase):
     def tearDown(self):
         pass
 
-    def testEstimate(self):
+    def testPositiveWeightedEstimates(self):
         estimate = self.estimator.estimate()
 
         a = (estimate[0][:, :, 4],)
@@ -677,7 +677,7 @@ class WeightedVolumesEstimatorTestCase(TestCase):
                 )
             )
 
-    def testEstimateNegWeight(self):
+    def testNegativeWeightedEstimates(self):
         """
         Here we'll test createing two volumes.
         One with positive and another with negative weights.

@@ -72,7 +72,7 @@ class WeightedVolumesEstimator(Estimator):
         sq_filters_f = self.src.eval_filter_grid(self.L, power=2)
 
         for k in range(self.r):
-            for j in range(k):
+            for j in range(k + 1):
                 for i in range(0, self.n, self.batch_size):
                     _range = np.arange(
                         i, min(self.n, i + self.batch_size), dtype=np.int
@@ -92,39 +92,31 @@ class WeightedVolumesEstimator(Estimator):
                     pts_rot = m_reshape(pts_rot, (3, -1))
                     weights = m_flatten(weights)
 
-                    kernel[k, j] += (
+                    batch_kernel = (
                         1
-                        / (self.L ** 4)
+                        / (2 * self.L ** 4)
                         * anufft(weights, pts_rot, (_2L, _2L, _2L), real=True)
                     )
+                    kernel[k, j] += batch_kernel
 
-                # r x r symmetric
-                # After summing all batch entries of kernel[k,j], copy values to kernel[j,k]
-                kernel[j, k] = kernel[k, j]
+                    # r x r symmetric
+                    # accumulate batch entries of kernel[k,j] to kernel[j,k]
+                    if j != k:
+                        kernel[j, k] += batch_kernel
 
-        # Ensure symmetric kernel
-        kernel[:, :, 0, :, :] = 0
-        kernel[:, :, :, 0, :] = 0
-        kernel[:, :, :, :, 0] = 0
-
-        # XXX
-        logger.info("Saving kermat")
-        np.save("kermat.npy", kernel)
-
-        kermat_f = np.empty((self.r, self.r, _2L, _2L, _2L))
+        kermat_f = np.zeros((self.r, self.r, _2L, _2L, _2L))
         logger.info("Computing non-centered Fourier Transform Kernel Mat")
         for k in range(self.r):
-            for j in range(k + 1):
+            for j in range(self.r):
+                # Ensure symmetric kernel
+                kernel[k, j, 0, :, :] = 0
+                kernel[k, j, :, 0, :] = 0
+                kernel[k, j, :, :, 0] = 0
+
                 kernel[k, j] = mdim_ifftshift(kernel[k, j], range(0, 3))
                 kernel_f = fftn(kernel[k, j], axes=(0, 1, 2))
                 kernel_f = np.real(kernel_f)
                 kermat_f[k, j] = kernel_f
-                if j != k:
-                    kermat_f[j, k] = kermat_f[k, j]
-
-        # XXX
-        logger.info("Saving kermat_f")
-        np.save("kermat_f.npy", kermat_f)
 
         return FourierKernelMat(kermat_f, centered=False)
 
@@ -203,10 +195,12 @@ class WeightedVolumesEstimator(Estimator):
 
         vols_out = np.zeros((self.r, self.L, self.L, self.L), dtype=self.dtype)
 
+        vol = self.basis.evaluate(vol_coeff)
+
         for k in range(self.r):
-            vol = self.basis.evaluate(vol_coeff[k])
             for j in range(self.r):
-                vols_out[k] += kernel.convolve_volume(vol, k, j)
+                vols_out[k] += kernel.convolve_volume(vol[j], j, k)
+                # Note this is where we would add mask_gamma
 
         vol_coeff = self.basis.evaluate_t(vols_out)
 
