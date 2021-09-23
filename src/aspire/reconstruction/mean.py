@@ -29,7 +29,7 @@ class WeightedVolumesEstimator(Estimator):
         and also a weighting term;
         the r^2 volumes are each of pairwise products between the weighting vectors given by the columns of wts.
 
-        Note that this is a non-centered Fourier transform, so the zero frequency is found at index 1.
+        Note that this is a non-centered Fourier transform, so the zero frequency is found at index 0.
 
         :param weights: Matrix of weights, n x r.
         """
