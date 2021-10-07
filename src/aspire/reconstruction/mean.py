@@ -31,6 +31,19 @@ class WeightedVolumesEstimator(Estimator):
 
         Note that this is a non-centered Fourier transform, so the zero frequency is found at index 0.
 
+        Formulas and conventions used for Volume estimation are described in:
+
+        “Structural Variability from Noisy Tomographic Projections.”
+        Andén, Joakim, and Amit Singer.
+        SIAM journal on imaging sciences vol. 11,2 (2018): 1441-1492.
+        doi:10.1137/17M1153509
+
+        "Cryo-EM reconstruction of continuous heterogeneity by Laplacian spectral volumes"
+        Amit Moscovich, Amit Halevi, Joakim Andén and Amit Singer
+        Inverse Problems, Volume 36, Number 2, 2020 IOP Publishing Ltd
+        Special Issue on Cryo-Electron Microscopy and Inverse Problems
+        https://doi.org/10.1088/1361-6420/ab4f55
+
         :param weights: Matrix of weights, n x r.
         """
 
