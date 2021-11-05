@@ -1,0 +1,45 @@
+aspire.classification package
+=============================
+
+Submodules
+----------
+
+aspire.classification.align2d module
+------------------------------------
+
+.. automodule:: aspire.classification.align2d
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+aspire.classification.class2d module
+------------------------------------
+
+.. automodule:: aspire.classification.class2d
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+aspire.classification.legacy\_implementations module
+----------------------------------------------------
+
+.. automodule:: aspire.classification.legacy_implementations
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+aspire.classification.rir\_class2d module
+-----------------------------------------
+
+.. automodule:: aspire.classification.rir_class2d
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: aspire.classification
+   :members:
+   :undoc-members:
+   :show-inheritance:

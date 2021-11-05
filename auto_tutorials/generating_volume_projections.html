@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generating 3D Volume Projections &mdash; ASPIRE 0.8.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Image Expansion" href="image_expansion.html" />
+    <link rel="prev" title="Covariance 3D Estimation" href="cov3d_simulation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> ASPIRE
+          </a>
+              <div class="version">
+                0.8.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Authors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Galleries:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cov2d_simulation.html">2D Covariance Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orient3d_simulation.html">3D Image Orientation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_class.html">ASPIRE Image Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture_feature_demo.html">ASPIRE-Python Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apple_picker.html">Apple Picker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_image_array.html">Basic Image Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class_averaging.html">Class Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cov3d_simulation.html">Covariance 3D Estimation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Generating 3D Volume Projections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configure-how-many-images-we-d-like-to-project">Configure how many images we’d like to project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-our-volume-data">Load our Volume data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#defining-rotations">Defining rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configure-noise">Configure Noise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-simulation-source">Setup Simulation Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yield-projection-images-from-the-simulation-source">Yield projection images from the Simulation Source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="image_expansion.html">Image Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocess_imgs_sim.html">Image Preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starfile.html">Starfile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_experiments/index.html">Experiments - <strong>COMING SOON</strong></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ASPIRE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Tutorials</a> &raquo;</li>
+      <li>Generating 3D Volume Projections</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_tutorials/generating_volume_projections.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-tutorials-generating-volume-projections-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="generating-3d-volume-projections">
+<span id="sphx-glr-auto-tutorials-generating-volume-projections-py"></span><h1>Generating 3D Volume Projections<a class="headerlink" href="#generating-3d-volume-projections" title="Permalink to this headline">¶</a></h1>
+<p>This script illustrates using ASPIRE’s Simulation source to
+generate projections of a Volume using prescribed rotations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">mrcfile</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">aspire.operators</span> <span class="kn">import</span> <span class="n">ScalarFilter</span>
+<span class="kn">from</span> <span class="nn">aspire.source.simulation</span> <span class="kn">import</span> <span class="n">Simulation</span>
+<span class="kn">from</span> <span class="nn">aspire.utils</span> <span class="kn">import</span> <span class="n">Rotation</span>
+<span class="kn">from</span> <span class="nn">aspire.volume</span> <span class="kn">import</span> <span class="n">Volume</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="configure-how-many-images-we-d-like-to-project">
+<h2>Configure how many images we’d like to project<a class="headerlink" href="#configure-how-many-images-we-d-like-to-project" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_img</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+</section>
+<section id="load-our-volume-data">
+<h2>Load our Volume data<a class="headerlink" href="#load-our-volume-data" title="Permalink to this headline">¶</a></h2>
+<p>This example starts with an mrc, loading it as an numpy array</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">DATA_DIR</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span>  <span class="c1"># Tutorial example data folder</span>
+<span class="n">v_npy</span> <span class="o">=</span> <span class="n">mrcfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;clean70SRibosome_vol_65p.mrc&quot;</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+<span class="c1"># Then using that to instantiate a Volume, which is downsampled to 60x60x60</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Volume</span><span class="p">(</span><span class="n">v_npy</span><span class="p">)</span><span class="o">.</span><span class="n">downsample</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="defining-rotations">
+<h2>Defining rotations<a class="headerlink" href="#defining-rotations" title="Permalink to this headline">¶</a></h2>
+<p>This will force a collection of in plane rotations about z.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># First get a list of angles to test</span>
+<span class="n">thetas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="n">n_img</span><span class="p">,</span> <span class="n">endpoint</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Define helper function for common 3D rotation matrix, about z.</span>
+
+
+<span class="k">def</span> <span class="nf">r_z</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># Construct a sequence of rotation matrices using r_z(thetas)</span>
+<span class="n">_rots</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_img</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">theta</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">thetas</span><span class="p">):</span>
+    <span class="c1"># Note we negate theta to match Rotation convention.</span>
+    <span class="n">_rots</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">r_z</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="p">)</span>
+
+<span class="c1"># Instantiate ASPIRE&#39;s Rotation class with the rotation matrices.</span>
+<span class="c1"># This will allow us to use or access the rotations in a variety of ways.</span>
+<span class="n">rots</span> <span class="o">=</span> <span class="n">Rotation</span><span class="o">.</span><span class="n">from_matrix</span><span class="p">(</span><span class="n">_rots</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="configure-noise">
+<h2>Configure Noise<a class="headerlink" href="#configure-noise" title="Permalink to this headline">¶</a></h2>
+<p>We can define controlled noise and have the Simulation apply it to our projection images.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">noise_variance</span> <span class="o">=</span> <span class="mf">1e-10</span>  <span class="c1"># Normally this would be derived from a desired SNR.</span>
+
+<span class="c1"># Then create a constant filter based on that variance, which is passed to Simulation</span>
+<span class="n">white_noise_filter</span> <span class="o">=</span> <span class="n">ScalarFilter</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">noise_variance</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="setup-simulation-source">
+<h2>Setup Simulation Source<a class="headerlink" href="#setup-simulation-source" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulation will randomly shift and amplify images by default.</span>
+<span class="c1"># Instead we define the following parameters.</span>
+<span class="n">shifts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_img</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">amplitudes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_img</span><span class="p">)</span>
+
+<span class="c1"># Create a Simulation Source object</span>
+<span class="n">src</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span>
+    <span class="n">vols</span><span class="o">=</span><span class="n">v</span><span class="p">,</span>  <span class="c1"># our Volume</span>
+    <span class="n">L</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span>  <span class="c1"># resolution, should match Volume</span>
+    <span class="n">n</span><span class="o">=</span><span class="n">n_img</span><span class="p">,</span>  <span class="c1"># number of projection images</span>
+    <span class="n">C</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">),</span>  <span class="c1"># Number of volumes in vols. 1 in this case</span>
+    <span class="n">angles</span><span class="o">=</span><span class="n">rots</span><span class="o">.</span><span class="n">angles</span><span class="p">,</span>  <span class="c1"># pass our rotations as Euler angles</span>
+    <span class="n">offsets</span><span class="o">=</span><span class="n">shifts</span><span class="p">,</span>  <span class="c1"># translations (wrt to origin)</span>
+    <span class="n">amplitudes</span><span class="o">=</span><span class="n">amplitudes</span><span class="p">,</span>  <span class="c1"># amplification ( 1 is identity)</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">,</span>  <span class="c1"># RNG seed for reproducibility</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span>  <span class="c1"># match our datatype to the Volume.</span>
+    <span class="n">noise_filter</span><span class="o">=</span><span class="n">white_noise_filter</span><span class="p">,</span>  <span class="c1"># optionally prescribe noise</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.6.15/x64/lib/python3.6/site-packages/scipy/spatial/transform/rotation.py:135: UserWarning: Gimbal lock detected. Setting third angle to zero since it is not possible to uniquely determine all angles.
+  warnings.warn(&quot;Gimbal lock detected. Setting third angle to zero since&quot;
+</pre></div>
+</div>
+</section>
+<section id="yield-projection-images-from-the-simulation-source">
+<h2>Yield projection images from the Simulation Source<a class="headerlink" href="#yield-projection-images-from-the-simulation-source" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Consume images from the source by providing</span>
+<span class="c1"># a starting index and number of images.</span>
+<span class="c1"># Here we generate the first 3 and peek at them.</span>
+<span class="n">src</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">src</span><span class="o">.</span><span class="n">projections</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Here we return the first n_img images as a numpy array.</span>
+<span class="n">dirty_ary</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_img</span><span class="p">)</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">()</span>
+
+<span class="c1"># And we have access to the clean images</span>
+<span class="n">clean_ary</span> <span class="o">=</span> <span class="n">src</span><span class="o">.</span><span class="n">projections</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_img</span><span class="p">)</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">()</span>
+
+<span class="c1"># Similary, the angles/rotations/shifts/amplitudes etc.</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../_images/sphx_glr_generating_volume_projections_001.png" srcset="../_images/sphx_glr_generating_volume_projections_001.png" alt="generating volume projections" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_generating_volume_projections_002.png" srcset="../_images/sphx_glr_generating_volume_projections_002.png" alt="generating volume projections" class = "sphx-glr-multi-img"/></li>
+</ul>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.731 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-tutorials-generating-volume-projections-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/9a22edc598323ad07cdfc78ead85d1ce/generating_volume_projections.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">generating_volume_projections.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/ed4ad694db77d75d4da6abceee0bf4c8/generating_volume_projections.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">generating_volume_projections.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="cov3d_simulation.html" class="btn btn-neutral float-left" title="Covariance 3D Estimation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="image_expansion.html" class="btn btn-neutral float-right" title="Image Expansion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Princeton University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

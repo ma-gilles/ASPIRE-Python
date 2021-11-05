@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutorials &mdash; ASPIRE 0.8.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2D Covariance Estimation" href="cov2d_simulation.html" />
+    <link rel="prev" title="Authors" href="../authors.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> ASPIRE
+          </a>
+              <div class="version">
+                0.8.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Authors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Galleries:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cov2d_simulation.html">2D Covariance Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orient3d_simulation.html">3D Image Orientation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_class.html">ASPIRE Image Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lecture_feature_demo.html">ASPIRE-Python Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apple_picker.html">Apple Picker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_image_array.html">Basic Image Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class_averaging.html">Class Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cov3d_simulation.html">Covariance 3D Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generating_volume_projections.html">Generating 3D Volume Projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_expansion.html">Image Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocess_imgs_sim.html">Image Preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starfile.html">Starfile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_experiments/index.html">Experiments - <strong>COMING SOON</strong></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ASPIRE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Tutorials</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_tutorials/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="tutorials">
+<span id="sphx-glr-auto-tutorials"></span><h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">¶</a></h1>
+<p>This gallery contains demonstrations of various image processing tools from the ASPIRE package, implemented using simulated data.</p>
+<div class="sphx-glr-thumbcontainer" tooltip="This script illustrates 2D covariance Wiener filtering functionality in the ASPIRE package, imp..."><figure class="align-default" id="id1">
+<img alt="2D Covariance Estimation" src="../_images/sphx_glr_cov2d_simulation_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="cov2d_simulation.html#sphx-glr-auto-tutorials-cov2d-simulation-py"><span class="std std-ref">2D Covariance Estimation</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This script illustrates the estimation of orientation angles using a synchronization matrix and..."><figure class="align-default" id="id2">
+<img alt="3D Image Orientation" src="../_images/sphx_glr_orient3d_simulation_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="orient3d_simulation.html#sphx-glr-auto-tutorials-orient3d-simulation-py"><span class="std std-ref">3D Image Orientation</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This tutorial demonstrates some methods of the ASPIRE Image class "><figure class="align-default" id="id3">
+<img alt="ASPIRE Image Class" src="../_images/sphx_glr_image_class_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="image_class.html#sphx-glr-auto-tutorials-image-class-py"><span class="std std-ref">ASPIRE Image Class</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="In this notebook we will introduce some code from ASPIRE-Python that corresponds to topics from..."><figure class="align-default" id="id4">
+<img alt="ASPIRE-Python Introduction" src="../_images/sphx_glr_lecture_feature_demo_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="lecture_feature_demo.html#sphx-glr-auto-tutorials-lecture-feature-demo-py"><span class="std std-ref">ASPIRE-Python Introduction</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="We demonstrate ASPIRE&#x27;s particle picking methods using the Apple class. "><figure class="align-default" id="id5">
+<img alt="Apple Picker" src="../_images/sphx_glr_apple_picker_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="apple_picker.html#sphx-glr-auto-tutorials-apple-picker-py"><span class="std std-ref">Apple Picker</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="In this example we will demonstrate some of ASPIRE&#x27;s image processing functionality. We will ad..."><figure class="align-default" id="id6">
+<img alt="Basic Image Array" src="../_images/sphx_glr_basic_image_array_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="basic_image_array.html#sphx-glr-auto-tutorials-basic-image-array-py"><span class="std std-ref">Basic Image Array</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="We demonstrate class averaging using the rotationally invariant representation algorithm. "><figure class="align-default" id="id7">
+<img alt="Class Averaging" src="../_images/sphx_glr_class_averaging_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="class_averaging.html#sphx-glr-auto-tutorials-class-averaging-py"><span class="std std-ref">Class Averaging</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This script illustrates the example of Covariance 3D estimation using simulation images generat..."><figure class="align-default" id="id8">
+<img alt="Covariance 3D Estimation" src="../_images/sphx_glr_cov3d_simulation_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="cov3d_simulation.html#sphx-glr-auto-tutorials-cov3d-simulation-py"><span class="std std-ref">Covariance 3D Estimation</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This script illustrates using ASPIRE&#x27;s Simulation source to generate projections of a Volume us..."><figure class="align-default" id="id9">
+<img alt="Generating 3D Volume Projections" src="../_images/sphx_glr_generating_volume_projections_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="generating_volume_projections.html#sphx-glr-auto-tutorials-generating-volume-projections-py"><span class="std std-ref">Generating 3D Volume Projections</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This script illustrates several expansion methods for 2D images developed in ASPIRE package bas..."><figure class="align-default" id="id10">
+<img alt="Image Expansion" src="../_images/sphx_glr_image_expansion_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="image_expansion.html#sphx-glr-auto-tutorials-image-expansion-py"><span class="std std-ref">Image Expansion</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This script illustrates the preprocess steps implemented prior to starting the pipeline of reco..."><figure class="align-default" id="id11">
+<img alt="Image Preprocessing" src="../_images/sphx_glr_preprocess_imgs_sim_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="preprocess_imgs_sim.html#sphx-glr-auto-tutorials-preprocess-imgs-sim-py"><span class="std std-ref">Image Preprocessing</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="Starfile"><figure class="align-default" id="id12">
+<img alt="Starfile" src="../_images/sphx_glr_starfile_thumb.png" />
+<figcaption>
+<p><span class="caption-text"><a class="reference internal" href="starfile.html#sphx-glr-auto-tutorials-starfile-py"><span class="std std-ref">Starfile</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div><p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../authors.html" class="btn btn-neutral float-left" title="Authors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cov2d_simulation.html" class="btn btn-neutral float-right" title="2D Covariance Estimation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Princeton University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

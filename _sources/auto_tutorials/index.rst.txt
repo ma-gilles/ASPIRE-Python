@@ -1,0 +1,276 @@
+:orphan:
+
+
+
+.. _sphx_glr_auto_tutorials:
+
+Tutorials
+===================
+
+This gallery contains demonstrations of various image processing tools from the ASPIRE package, implemented using simulated data.
+
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This script illustrates 2D covariance Wiener filtering functionality in the ASPIRE package, imp...">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_cov2d_simulation_thumb.png
+     :alt: 2D Covariance Estimation
+
+     :ref:`sphx_glr_auto_tutorials_cov2d_simulation.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/cov2d_simulation
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This script illustrates the estimation of orientation angles using a synchronization matrix and...">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_orient3d_simulation_thumb.png
+     :alt: 3D Image Orientation
+
+     :ref:`sphx_glr_auto_tutorials_orient3d_simulation.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/orient3d_simulation
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial demonstrates some methods of the ASPIRE Image class ">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_image_class_thumb.png
+     :alt: ASPIRE Image Class
+
+     :ref:`sphx_glr_auto_tutorials_image_class.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/image_class
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this notebook we will introduce some code from ASPIRE-Python that corresponds to topics from...">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_lecture_feature_demo_thumb.png
+     :alt: ASPIRE-Python Introduction
+
+     :ref:`sphx_glr_auto_tutorials_lecture_feature_demo.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/lecture_feature_demo
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We demonstrate ASPIRE&#x27;s particle picking methods using the Apple class. ">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_apple_picker_thumb.png
+     :alt: Apple Picker
+
+     :ref:`sphx_glr_auto_tutorials_apple_picker.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/apple_picker
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this example we will demonstrate some of ASPIRE&#x27;s image processing functionality. We will ad...">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_basic_image_array_thumb.png
+     :alt: Basic Image Array
+
+     :ref:`sphx_glr_auto_tutorials_basic_image_array.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/basic_image_array
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We demonstrate class averaging using the rotationally invariant representation algorithm. ">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_class_averaging_thumb.png
+     :alt: Class Averaging
+
+     :ref:`sphx_glr_auto_tutorials_class_averaging.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/class_averaging
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This script illustrates the example of Covariance 3D estimation using simulation images generat...">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_cov3d_simulation_thumb.png
+     :alt: Covariance 3D Estimation
+
+     :ref:`sphx_glr_auto_tutorials_cov3d_simulation.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/cov3d_simulation
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This script illustrates using ASPIRE&#x27;s Simulation source to generate projections of a Volume us...">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_generating_volume_projections_thumb.png
+     :alt: Generating 3D Volume Projections
+
+     :ref:`sphx_glr_auto_tutorials_generating_volume_projections.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/generating_volume_projections
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This script illustrates several expansion methods for 2D images developed in ASPIRE package bas...">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_image_expansion_thumb.png
+     :alt: Image Expansion
+
+     :ref:`sphx_glr_auto_tutorials_image_expansion.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/image_expansion
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This script illustrates the preprocess steps implemented prior to starting the pipeline of reco...">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_preprocess_imgs_sim_thumb.png
+     :alt: Image Preprocessing
+
+     :ref:`sphx_glr_auto_tutorials_preprocess_imgs_sim.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/preprocess_imgs_sim
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Starfile">
+
+.. only:: html
+
+ .. figure:: /auto_tutorials/images/thumb/sphx_glr_starfile_thumb.png
+     :alt: Starfile
+
+     :ref:`sphx_glr_auto_tutorials_starfile.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_tutorials/starfile
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASPIRE-Python Introduction &mdash; ASPIRE 0.8.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Apple Picker" href="apple_picker.html" />
+    <link rel="prev" title="ASPIRE Image Class" href="image_class.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> ASPIRE
+          </a>
+              <div class="version">
+                0.8.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../authors.html">Authors</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Galleries:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cov2d_simulation.html">2D Covariance Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orient3d_simulation.html">3D Image Orientation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_class.html">ASPIRE Image Class</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ASPIRE-Python Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#imports">Imports</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#homework-task-0">Homework Task 0</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#image-class"><code class="docutils literal notranslate"><span class="pre">Image</span></code> Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#volume-class"><code class="docutils literal notranslate"><span class="pre">Volume</span></code> Class</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#homework-task-1">Homework Task 1</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#initialize-volume">Initialize Volume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#contour-plot-of-data">Contour Plot of Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scatter-plot">Scatter Plot</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#homework-task-2">Homework Task 2</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#rotation-class-generating-random-rotations"><code class="docutils literal notranslate"><span class="pre">Rotation</span></code> Class - Generating Random Rotations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-source-package">The <code class="docutils literal notranslate"><span class="pre">source</span></code> Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulation-class"><code class="docutils literal notranslate"><span class="pre">Simulation</span></code> Class</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulation-with-noise-filters">Simulation with Noise - Filters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#filters">Filters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-to-simulation">Adding to Simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#common-line-estimation">Common Line Estimation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#homework-task-3">Homework Task 3</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#more-advanced-noise-whitening">More Advanced Noise - Whitening</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-noise-package">The <code class="docutils literal notranslate"><span class="pre">noise</span></code> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#a-custom-functionfilter">A Custom <code class="docutils literal notranslate"><span class="pre">FunctionFilter</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#noise-whitening">Noise Whitening</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#homework-task-4">Homework Task 4</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#real-experimental-data-relionsource">Real Experimental Data - <code class="docutils literal notranslate"><span class="pre">RelionSource</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ctf-filter">CTF Filter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="apple_picker.html">Apple Picker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_image_array.html">Basic Image Array</a></li>
+<li class="toctree-l2"><a class="reference internal" href="class_averaging.html">Class Averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cov3d_simulation.html">Covariance 3D Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="generating_volume_projections.html">Generating 3D Volume Projections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image_expansion.html">Image Expansion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="preprocess_imgs_sim.html">Image Preprocessing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="starfile.html">Starfile</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_experiments/index.html">Experiments - <strong>COMING SOON</strong></a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ASPIRE</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Tutorials</a> &raquo;</li>
+      <li>ASPIRE-Python Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_tutorials/lecture_feature_demo.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-tutorials-lecture-feature-demo-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<section class="sphx-glr-example-title" id="aspire-python-introduction">
+<span id="sphx-glr-auto-tutorials-lecture-feature-demo-py"></span><h1>ASPIRE-Python Introduction<a class="headerlink" href="#aspire-python-introduction" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook we will introduce some code from ASPIRE-Python
+that corresponds to topics from MATH586.</p>
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
+<p>First we import some of the usual suspects. In addition, we import some classes from
+the ASPIRE package that we will use throughout this tutorial.</p>
+<section id="homework-task-0">
+<h3>Homework Task 0<a class="headerlink" href="#homework-task-0" title="Permalink to this headline">¶</a></h3>
+<p>Attempt to install ASPIRE on your machine. ASPIRE can generally install on
+Linux, Mac, and Windows
+under Anaconda Python, by following the instructions in the README.
+<a class="reference external" href="https://github.com/ComputationalCryoEM/ASPIRE-Python/blob/master/README.md#for-developers">The instructions for developers is the most comprehensive</a>.
+Linux is the most tested platform.</p>
+<p>ASPIRE requires some resources to run, so if you wouldn’t run typical data
+science codes on your machine (maybe a netbook for example),
+you may use TigerCPU. After logging into TigerCPU,
+<code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">anaconda3/2020.7</span></code> and follow the anaconda instructions for
+developers in the link above.
+Those instructions should create a working environment for tinkering with
+ASPIRE code found in this notebook.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">mrcfile</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">aspire.abinitio</span> <span class="kn">import</span> <span class="n">CLSyncVoting</span>
+<span class="kn">from</span> <span class="nn">aspire.noise</span> <span class="kn">import</span> <span class="n">AnisotropicNoiseEstimator</span><span class="p">,</span> <span class="n">WhiteNoiseEstimator</span>
+<span class="kn">from</span> <span class="nn">aspire.operators</span> <span class="kn">import</span> <span class="n">FunctionFilter</span><span class="p">,</span> <span class="n">RadialCTFFilter</span><span class="p">,</span> <span class="n">ScalarFilter</span>
+<span class="kn">from</span> <span class="nn">aspire.source</span> <span class="kn">import</span> <span class="n">RelionSource</span><span class="p">,</span> <span class="n">Simulation</span>
+<span class="kn">from</span> <span class="nn">aspire.utils</span> <span class="kn">import</span> <span class="n">Rotation</span>
+<span class="kn">from</span> <span class="nn">aspire.utils.coor_trans</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_aligned_rotations</span><span class="p">,</span>
+    <span class="n">get_rots_mse</span><span class="p">,</span>
+    <span class="n">register_rotations</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">aspire.volume</span> <span class="kn">import</span> <span class="n">Volume</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="image-class">
+<h2><code class="docutils literal notranslate"><span class="pre">Image</span></code> Class<a class="headerlink" href="#image-class" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="https://computationalcryoem.github.io/ASPIRE-Python/aspire.image.html#aspire.image.image.Image">Image</a> class
+is a thin wrapper over numpy arrays for a stack containing 1 or more images.
+In this notebook we won’t be working directly with the <code class="docutils literal notranslate"><span class="pre">Image</span></code> class a lot, but it will be one of the fundemental structures behind the scenes.
+A lot of ASPIRE code passes around <code class="docutils literal notranslate"><span class="pre">Image</span></code> and <code class="docutils literal notranslate"><span class="pre">Volume</span></code> classes.</p>
+<p>Examples of using the Image class can be found in:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">gallery/tutorials/basic_image_array.py</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gallery/tutorials/image_class.py</span></code></p></li>
+</ul>
+</section>
+<section id="volume-class">
+<h2><code class="docutils literal notranslate"><span class="pre">Volume</span></code> Class<a class="headerlink" href="#volume-class" title="Permalink to this headline">¶</a></h2>
+<p>Like <code class="docutils literal notranslate"><span class="pre">Image</span></code>, the <a class="reference external" href="https://computationalcryoem.github.io/ASPIRE-Python/aspire.volume.html#aspire.volume.Volume">Volume</a> class
+is a thin wrapper over numpy arrays that provides specialized methods for a stack containing 1 or more volumes.</p>
+<p>Here we will instantiate a Volume using a numpy array and use it to downsample to a desired resolution (64 should be good).
+For the data source I chose to download a real volume density map from <a class="reference external" href="https://www.ebi.ac.uk/pdbe/entry/emdb/EMD-2660">EMDB</a>.
+The download was uncompressed in my local directory.  The notebook defaults to a small low resolution sample file you may use to sanity check.
+Unfortunately real data can be quite large so we do not ship it with the repo.</p>
+<section id="homework-task-1">
+<h3>Homework Task 1<a class="headerlink" href="#homework-task-1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Starting from <a class="reference external" href="https://www.ebi.ac.uk/pdbe/emdb/empiar/">EMPIAR</a> find a molecule of interest and try to</p></li>
+</ul>
+<p>find if it has a corresponding volume density map from <a class="reference external" href="https://www.ebi.ac.uk/pdbe/emdb">EMDB</a>.</p>
+<ul class="simple">
+<li><p>Download such a map and use it in the following experiments where I have used 2660.</p></li>
+</ul>
+<p>Helpful friendly hint:
+<cite>mrcfile</cite> will typically open <cite>.map</cite> files provided by EMDB, corresponding to an EMPIAR entry.
+This was not obvious to me, but you may <a class="reference external" href="https://www.emdataresource.org/mapformat.html">read more about the format here</a>.</p>
+</section>
+</section>
+<section id="initialize-volume">
+<h2>Initialize Volume<a class="headerlink" href="#initialize-volume" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># A low res example file is included in the repo as a sanity check.</span>
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="s2">&quot;data&quot;</span>
+<span class="n">infile</span> <span class="o">=</span> <span class="n">mrcfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="s2">&quot;clean70SRibosome_vol_65p.mrc&quot;</span><span class="p">))</span>
+
+<span class="c1"># More interesting data requires downloading locally.</span>
+<span class="c1"># infile = mrcfile.open(&quot;EMD-2660/map/emd_2660.map&quot;)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">infile</span><span class="o">.</span><span class="n">data</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;map data shape: </span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> dtype:</span><span class="si">{</span><span class="n">d</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">Volume</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+<span class="c1"># Downsample the volume to a desired resolution</span>
+<span class="n">img_size</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="c1"># Volume.downsample() Returns a new Volume instance.</span>
+<span class="c1">#   We will use this lower resolution volume later.</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">downsample</span><span class="p">((</span><span class="n">img_size</span><span class="p">,</span> <span class="n">img_size</span><span class="p">,</span> <span class="n">img_size</span><span class="p">))</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">v2</span><span class="o">.</span><span class="n">resolution</span>
+</pre></div>
+</div>
+</section>
+<section id="contour-plot-of-data">
+<h2>Contour Plot of Data<a class="headerlink" href="#contour-plot-of-data" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Alternatively, for quick sanity checking purposes we can view as a contour plot.</span>
+<span class="c1">#   We&#39;ll use three orthographic projections, one per axis.</span>
+<span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">L</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">L</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_lecture_feature_demo_001.png" srcset="../_images/sphx_glr_lecture_feature_demo_001.png" alt="lecture feature demo" class = "sphx-glr-single-img"/></section>
+<section id="scatter-plot">
+<h2>Scatter Plot<a class="headerlink" href="#scatter-plot" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can attempt a 3d scatter plot, but the results aren&#39;t very good.</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">L</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">L</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">L</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter3D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">v2</span><span class="o">.</span><span class="n">flatten</span><span class="p">()),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_lecture_feature_demo_002.png" srcset="../_images/sphx_glr_lecture_feature_demo_002.png" alt="lecture feature demo" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/runner/work/ASPIRE-Python/ASPIRE-Python/gallery/tutorials/lecture_feature_demo.py:134: RuntimeWarning: invalid value encountered in log10
+  ax.scatter3D(x, y, z, c=np.log10(v2.flatten()), cmap=&quot;Greys_r&quot;)
+</pre></div>
+</div>
+<section id="homework-task-2">
+<h3>Homework Task 2<a class="headerlink" href="#homework-task-2" title="Permalink to this headline">¶</a></h3>
+<p>Above I have used a simple log transform with a scatter plot to peek at the 3D data.
+This was mainly just to make sure the data was in the neighborhood of what I was looking for.
+More commonly we will want to construct an <code class="docutils literal notranslate"><span class="pre">isosurface</span></code> plot.
+Try to create a better plot of the volume (this will probably require more advanced tools than matplotlib).</p>
+</section>
+</section>
+<section id="rotation-class-generating-random-rotations">
+<h2><code class="docutils literal notranslate"><span class="pre">Rotation</span></code> Class - Generating Random Rotations<a class="headerlink" href="#rotation-class-generating-random-rotations" title="Permalink to this headline">¶</a></h2>
+<p>To get general projections this brings us to generating random rotations which we will apply to our volume.</p>
+<p>While you may bring your own 3x3 matrices or generate manually (say from your own Euler angles),
+ASPIRE has a <a class="reference external" href="https://computationalcryoem.github.io/ASPIRE-Python/aspire.utils.html#module-aspire.utils.rotation">Rotation class</a>
+which can do this random rotation generation for us.  It also has some other utility methods if you would want to compare with something manual.</p>
+<p>The following code will generate some random rotations, and use the <code class="docutils literal notranslate"><span class="pre">Volume.project()</span></code> method to return an <code class="docutils literal notranslate"><span class="pre">Image</span></code> instance representing the stack of projections.
+We can display projection images using the <code class="docutils literal notranslate"><span class="pre">Image.show()</span></code> method.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">num_rotations</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">rots</span> <span class="o">=</span> <span class="n">Rotation</span><span class="o">.</span><span class="n">generate_random_rotations</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">num_rotations</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">12345</span><span class="p">)</span>
+
+<span class="c1"># We can access the numpy array holding the actual stack of 3x3 matrices:</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">rots</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">rots</span><span class="o">.</span><span class="n">matrices</span><span class="p">)</span>
+
+<span class="c1"># Using the first (and in this case, only) volume, compute projections using the stack of rotations:</span>
+<span class="n">projections</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">rots</span><span class="p">)</span>
+
+<span class="c1"># project() returns an Image instance.</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">projections</span><span class="p">)</span>
+<span class="n">projections</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># Neat, we&#39;ve generated random projections of some real data.</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_lecture_feature_demo_003.png" srcset="../_images/sphx_glr_lecture_feature_demo_003.png" alt="lecture feature demo" class = "sphx-glr-single-img"/></section>
+<section id="the-source-package">
+<h2>The <code class="docutils literal notranslate"><span class="pre">source</span></code> Package<a class="headerlink" href="#the-source-package" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://computationalcryoem.github.io/ASPIRE-Python/aspire.source.html#module-aspire.source.simulation">aspire.source</a>
+package contains a collection of data source interfaces.
+The idea is that we can design an experiment using a synthetic <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> source or our own provided array via <code class="docutils literal notranslate"><span class="pre">ArrayImageSource</span></code>;
+then later swap out the source for a large experimental data set using something like <code class="docutils literal notranslate"><span class="pre">RelionSource</span></code>.</p>
+<p>We do this because the experimental datasets are too large to fit in memory.
+They cannot be provided as a massive large array, and instead require methods to orchestrate batching.
+Depending on the application, they may also require corresponding batched algorithms.
+The <code class="docutils literal notranslate"><span class="pre">Source</span></code> classes try to make most of this opaque to an end user.  Ideally we can swap one source for another.</p>
+<p>For now we will build up to the creation and application of synthetic data set based on the real volume data used previously.</p>
+</section>
+<section id="simulation-class">
+<h2><code class="docutils literal notranslate"><span class="pre">Simulation</span></code> Class<a class="headerlink" href="#simulation-class" title="Permalink to this headline">¶</a></h2>
+<p>Generating realistic synthetic data sources is a common task.
+The process of generating then projecting random rotations is integrated into the
+<a class="reference external" href="https://computationalcryoem.github.io/ASPIRE-Python/aspire.source.html#module-aspire.source.simulation">Simulation</a> class.
+Using <code class="docutils literal notranslate"><span class="pre">Simulation</span></code>, we can generate arbitrary numbers of projections for use in experiments.
+Later we will demonstrate additional features which allow us to create more realistic data sources.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">num_imgs</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1"># How many images in our source.</span>
+<span class="c1"># Generate a Simulation instance based on the original volume data.</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">num_imgs</span><span class="p">,</span> <span class="n">vols</span><span class="o">=</span><span class="n">v</span><span class="p">)</span>
+<span class="c1"># Display the first 10 images</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Hi Res</span>
+
+<span class="c1"># Repeat for the lower resolution (downsampled) volume v2.</span>
+<span class="n">sim2</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">v2</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">num_imgs</span><span class="p">,</span> <span class="n">vols</span><span class="o">=</span><span class="n">v2</span><span class="p">)</span>
+<span class="n">sim2</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>  <span class="c1"># Lo Res</span>
+
+<span class="c1"># Note both of those simulations have the same rotations</span>
+<span class="c1">#   because they had the same seed by default,</span>
+<span class="c1"># We can set our own seed to get a different random samples (of rotations).</span>
+<span class="n">sim_seed</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">num_imgs</span><span class="p">,</span> <span class="n">vols</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">sim_seed</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># We can also view the rotations used to create these projections</span>
+<span class="c1"># logger.info(sim2.rots)  # Commented due to long output</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../_images/sphx_glr_lecture_feature_demo_004.png" srcset="../_images/sphx_glr_lecture_feature_demo_004.png" alt="lecture feature demo" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_lecture_feature_demo_005.png" srcset="../_images/sphx_glr_lecture_feature_demo_005.png" alt="lecture feature demo" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_lecture_feature_demo_006.png" srcset="../_images/sphx_glr_lecture_feature_demo_006.png" alt="lecture feature demo" class = "sphx-glr-multi-img"/></li>
+</ul>
+</section>
+<section id="simulation-with-noise-filters">
+<h2>Simulation with Noise - Filters<a class="headerlink" href="#simulation-with-noise-filters" title="Permalink to this headline">¶</a></h2>
+<section id="filters">
+<h3>Filters<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://computationalcryoem.github.io/ASPIRE-Python/aspire.operators.html#module-aspire.operators.filters">Filters</a>
+are a collection of classes which once configured can be applied to <code class="docutils literal notranslate"><span class="pre">Source</span></code> pipelines.
+Common filters we might use are <code class="docutils literal notranslate"><span class="pre">ScalarFilter</span></code>, <code class="docutils literal notranslate"><span class="pre">PowerFilter</span></code>, <code class="docutils literal notranslate"><span class="pre">FunctionFilter</span></code>, and <code class="docutils literal notranslate"><span class="pre">CTFFilter</span></code>.</p>
+</section>
+<section id="adding-to-simulation">
+<h3>Adding to Simulation<a class="headerlink" href="#adding-to-simulation" title="Permalink to this headline">¶</a></h3>
+<p>We can customize Sources by adding stages to their generation pipeline.
+In this case of a Simulation source, we want to corrupt the projection images with significant noise.</p>
+<p>First we create a constant two dimension filter (constant value set to our desired noise variance).
+Then when used in the <code class="docutils literal notranslate"><span class="pre">noise_filter</span></code>, this scalar will be multiplied by a random sample.
+Similar to before, if you require a different sample, this would be controlled via a <code class="docutils literal notranslate"><span class="pre">seed</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using the sample variance, we&#39;ll compute a target noise variance</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">sim2</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sim2</span><span class="o">.</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">())</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sim2 clean sample var </span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">noise_variance</span> <span class="o">=</span> <span class="mf">100.0</span> <span class="o">*</span> <span class="n">var</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;noise var </span><span class="si">{</span><span class="n">noise_variance</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Then create a constant filter based on that variance</span>
+<span class="n">white_noise_filter</span> <span class="o">=</span> <span class="n">ScalarFilter</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">noise_variance</span><span class="p">)</span>
+<span class="c1"># We can create a similar simulation with this additional noise_filter argument:</span>
+<span class="n">sim3</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">v2</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">num_imgs</span><span class="p">,</span> <span class="n">vols</span><span class="o">=</span><span class="n">v2</span><span class="p">,</span> <span class="n">noise_filter</span><span class="o">=</span><span class="n">white_noise_filter</span><span class="p">)</span>
+<span class="n">sim3</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># These should be rather noisy now ...</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_lecture_feature_demo_007.png" srcset="../_images/sphx_glr_lecture_feature_demo_007.png" alt="lecture feature demo" class = "sphx-glr-single-img"/></section>
+</section>
+<section id="common-line-estimation">
+<h2>Common Line Estimation<a class="headerlink" href="#common-line-estimation" title="Permalink to this headline">¶</a></h2>
+<p>Now we can create a CL instance for estimating orientation of projections using the Common Line with synchronization method.</p>
+<p>We will import <a class="reference external" href="(https://computationalcryoem.github.io/ASPIRE-Python/aspire.abinitio.html?highlight=clsyncvoting#aspire.abinitio.commonline_sync.CLSyncVoting">CLSyncVoting</a>,
+then several helper utilities fron the <code class="docutils literal notranslate"><span class="pre">coor_trans</span></code> package to help verify our estimates.</p>
+<p>For each iteration in the loop:
+- Save the true rotations
+- Compute orientation estimate using CLSyncVoting method
+- Compare the estimated vs true rotations</p>
+<p>Each iteration will logger.info some diagnostic information that contains the top eigenvalues found.
+From class we learned that a healthy eigendistribution should have a significant gap after the third eigenvalue.
+It is clear we have such eigenspacing for the clean images, but not for the noisy images.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">desc</span><span class="p">,</span> <span class="n">_sim</span> <span class="ow">in</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;High Res&quot;</span><span class="p">,</span> <span class="n">sim</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;Downsampled&quot;</span><span class="p">,</span> <span class="n">sim2</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;Downsampled with Noise&quot;</span><span class="p">,</span> <span class="n">sim3</span><span class="p">),</span>
+<span class="p">]:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">desc</span><span class="p">)</span>
+    <span class="n">true_rotations</span> <span class="o">=</span> <span class="n">_sim</span><span class="o">.</span><span class="n">rots</span>  <span class="c1"># for later comparison</span>
+
+    <span class="n">orient_est</span> <span class="o">=</span> <span class="n">CLSyncVoting</span><span class="p">(</span><span class="n">_sim</span><span class="p">,</span> <span class="n">n_theta</span><span class="o">=</span><span class="mi">36</span><span class="p">)</span>
+    <span class="c1"># Get the estimated rotations</span>
+    <span class="n">orient_est</span><span class="o">.</span><span class="n">estimate_rotations</span><span class="p">()</span>
+    <span class="n">rots_est</span> <span class="o">=</span> <span class="n">orient_est</span><span class="o">.</span><span class="n">rotations</span>
+
+    <span class="c1"># Compare with known true rotations</span>
+    <span class="n">Q_mat</span><span class="p">,</span> <span class="n">flag</span> <span class="o">=</span> <span class="n">register_rotations</span><span class="p">(</span><span class="n">rots_est</span><span class="p">,</span> <span class="n">true_rotations</span><span class="p">)</span>
+    <span class="n">regrot</span> <span class="o">=</span> <span class="n">get_aligned_rotations</span><span class="p">(</span><span class="n">rots_est</span><span class="p">,</span> <span class="n">Q_mat</span><span class="p">,</span> <span class="n">flag</span><span class="p">)</span>
+    <span class="n">mse_reg</span> <span class="o">=</span> <span class="n">get_rots_mse</span><span class="p">(</span><span class="n">regrot</span><span class="p">,</span> <span class="n">true_rotations</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;MSE deviation of the estimated rotations using register_rotations : </span><span class="si">{</span><span class="n">mse_reg</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<section id="homework-task-3">
+<h3>Homework Task 3<a class="headerlink" href="#homework-task-3" title="Permalink to this headline">¶</a></h3>
+<p>We confirmed a dramatic change in the eigenspacing when we add a lot of noise.
+Compute the SNR in this case using the formula described from class.
+Repeat the experiment with varying levels of SNR to find at what level the character of the eigenspacing changes.
+This will require changing the Simulation Source’s noise_filter.
+How does this compare with the levels discussed in lecture?</p>
+</section>
+</section>
+<section id="more-advanced-noise-whitening">
+<h2>More Advanced Noise - Whitening<a class="headerlink" href="#more-advanced-noise-whitening" title="Permalink to this headline">¶</a></h2>
+<p>We can estimate the noise across the stack of images</p>
+<section id="the-noise-package">
+<h3>The <code class="docutils literal notranslate"><span class="pre">noise</span></code> Package<a class="headerlink" href="#the-noise-package" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference external" href="https://computationalcryoem.github.io/ASPIRE-Python/aspire.noise.html">aspire.noise</a>
+package contains several useful classes for generating and estimating different types of noise.</p>
+<p>In this case, we know the noise to be white, so we can proceed directly to
+<a class="reference external" href="https://computationalcryoem.github.io/ASPIRE-Python/aspire.noise.html#aspire.noise.noise.WhiteNoiseEstimator">WhiteNoiseEstimator</a>.  The noise estimators consume from a <code class="docutils literal notranslate"><span class="pre">Source</span></code>.</p>
+<p>The white noise estimator should log a diagnostic variance value. How does this compare with the known noise variance above?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create another Simulation source to tinker with.</span>
+<span class="n">sim_wht</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span>
+    <span class="n">L</span><span class="o">=</span><span class="n">v2</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">num_imgs</span><span class="p">,</span> <span class="n">vols</span><span class="o">=</span><span class="n">v2</span><span class="p">,</span> <span class="n">noise_filter</span><span class="o">=</span><span class="n">white_noise_filter</span>
+<span class="p">)</span>
+
+<span class="c1"># Estimate the white noise.</span>
+<span class="n">noise_estimator</span> <span class="o">=</span> <span class="n">WhiteNoiseEstimator</span><span class="p">(</span><span class="n">sim_wht</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="a-custom-functionfilter">
+<h2>A Custom <code class="docutils literal notranslate"><span class="pre">FunctionFilter</span></code><a class="headerlink" href="#a-custom-functionfilter" title="Permalink to this headline">¶</a></h2>
+<p>We will now apply some more interesting noise, using a custom function, and then apply a <code class="docutils literal notranslate"><span class="pre">whitening</span></code> process to our data.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">FunctionFilter</span></code> we can create our own custom functions to apply in a pipeline.
+Here we want to apply a custom filter as a noise adder.  We can use a function of two variables for example.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">noise_function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">1e-7</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+
+
+<span class="c1"># In python, functions are first class objects.</span>
+<span class="c1"># We take advantage of that to pass this function around as a variable.</span>
+<span class="c1"># It will be evaluated later...</span>
+<span class="n">custom_noise_filter</span> <span class="o">=</span> <span class="n">FunctionFilter</span><span class="p">(</span><span class="n">noise_function</span><span class="p">)</span>
+
+<span class="c1"># Create yet another Simulation source to tinker with.</span>
+<span class="n">sim4</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span>
+    <span class="n">L</span><span class="o">=</span><span class="n">v2</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">num_imgs</span><span class="p">,</span> <span class="n">vols</span><span class="o">=</span><span class="n">v2</span><span class="p">,</span> <span class="n">noise_filter</span><span class="o">=</span><span class="n">custom_noise_filter</span>
+<span class="p">)</span>
+<span class="n">sim4</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_lecture_feature_demo_008.png" srcset="../_images/sphx_glr_lecture_feature_demo_008.png" alt="lecture feature demo" class = "sphx-glr-single-img"/></section>
+<section id="noise-whitening">
+<h2>Noise Whitening<a class="headerlink" href="#noise-whitening" title="Permalink to this headline">¶</a></h2>
+<p>Applying the <code class="docutils literal notranslate"><span class="pre">Simulation.whiten()</span></code> method just requires passing the filter corresponding to the estimated noise instance.
+Then we can inspect some of the whitened images.  While noise is still present, we can see a dramatic change.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Estimate noise.</span>
+<span class="n">aiso_noise_estimator</span> <span class="o">=</span> <span class="n">AnisotropicNoiseEstimator</span><span class="p">(</span><span class="n">sim4</span><span class="p">)</span>
+
+<span class="c1"># Whiten based on the estimated noise</span>
+<span class="n">sim4</span><span class="o">.</span><span class="n">whiten</span><span class="p">(</span><span class="n">aiso_noise_estimator</span><span class="o">.</span><span class="n">filter</span><span class="p">)</span>
+
+<span class="c1"># What do the whitened images look like...</span>
+<span class="n">sim4</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_lecture_feature_demo_009.png" srcset="../_images/sphx_glr_lecture_feature_demo_009.png" alt="lecture feature demo" class = "sphx-glr-single-img"/><section id="homework-task-4">
+<h3>Homework Task 4<a class="headerlink" href="#homework-task-4" title="Permalink to this headline">¶</a></h3>
+<p>Try some other image preprocessing methods exposed by the <code class="docutils literal notranslate"><span class="pre">Simulation</span></code>/<code class="docutils literal notranslate"><span class="pre">ImageSource</span></code> classes.</p>
+<p>Try some other custom function to add noise or other corruptions to the images.</p>
+</section>
+</section>
+<section id="real-experimental-data-relionsource">
+<h2>Real Experimental Data - <code class="docutils literal notranslate"><span class="pre">RelionSource</span></code><a class="headerlink" href="#real-experimental-data-relionsource" title="Permalink to this headline">¶</a></h2>
+<p>Now that we know our experiment code seems to run,
+we can try to replace the simulation with a real experimental data source.</p>
+<p>Lets attempt the same CL experiment, but with a <code class="docutils literal notranslate"><span class="pre">RelionSource</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">src</span> <span class="o">=</span> <span class="n">RelionSource</span><span class="p">(</span>
+    <span class="s2">&quot;data/sample_relion_data.star&quot;</span><span class="p">,</span>
+    <span class="n">data_folder</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">pixel_size</span><span class="o">=</span><span class="mf">5.0</span><span class="p">,</span>
+    <span class="n">max_rows</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Data resides on Tiger Cluster</span>
+<span class="c1"># Please make sure you are using a compute node once you&#39;ve installed ASPIRE, not the head node...</span>
+<span class="c1"># src =  RelionSource(</span>
+<span class="c1">#    &quot;/tigress/gbwright/data/cryo-em/CryoEMdata/empiar10028/shiny_2sets.star&quot;, data_folder=&quot;&quot;, pixel_size=5.0, max_rows=100</span>
+<span class="c1"># )</span>
+<span class="n">src</span><span class="o">.</span><span class="n">downsample</span><span class="p">(</span><span class="n">img_size</span><span class="p">)</span>
+
+<span class="n">src</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">noise_estimator</span> <span class="o">=</span> <span class="n">WhiteNoiseEstimator</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+<span class="n">src</span><span class="o">.</span><span class="n">whiten</span><span class="p">(</span><span class="n">noise_estimator</span><span class="o">.</span><span class="n">filter</span><span class="p">)</span>
+
+<span class="n">orient_est</span> <span class="o">=</span> <span class="n">CLSyncVoting</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">n_theta</span><span class="o">=</span><span class="mi">36</span><span class="p">)</span>
+<span class="n">orient_est</span><span class="o">.</span><span class="n">estimate_rotations</span><span class="p">()</span>
+<span class="n">rots_est</span> <span class="o">=</span> <span class="n">orient_est</span><span class="o">.</span><span class="n">rotations</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_lecture_feature_demo_010.png" srcset="../_images/sphx_glr_lecture_feature_demo_010.png" alt="lecture feature demo" class = "sphx-glr-single-img"/><p>We can see that the code can easily run with experimental data by subsituting the <code class="docutils literal notranslate"><span class="pre">Source</span></code> class.
+However, we have hit the practical limitation that requires class averaging of images….</p>
+</section>
+<section id="ctf-filter">
+<h2>CTF Filter<a class="headerlink" href="#ctf-filter" title="Permalink to this headline">¶</a></h2>
+<p>Here we can use the <code class="docutils literal notranslate"><span class="pre">RadialCTFFilter</span></code> subclass of
+<a class="reference external" href="https://computationalcryoem.github.io/ASPIRE-Python/aspire.operators.html?highlight=ctffilter#aspire.operators.filters.CTFFilter">CTFFilter</a>
+to generate some simulated images with CTF effects.</p>
+<p>We use the <code class="docutils literal notranslate"><span class="pre">unique_filter</span></code> argument of the <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> class to apply a collection of several CTFs with different defocus.
+The defocus values are generated from the <code class="docutils literal notranslate"><span class="pre">np.linspace</span></code> method. We end up with a list of filters.</p>
+<p>By combining CTFFilters, noise, and other filters ASPIRE can generate repeatable rich data sets with controlled parameters.
+The <code class="docutils literal notranslate"><span class="pre">Simulation</span></code> class will attempt to apply transforms <code class="docutils literal notranslate"><span class="pre">on</span> <span class="pre">the</span> <span class="pre">fly</span></code> to batches of our images, allowing us to generate arbitrarily long stacks of data.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Specify the CTF parameters not used for this example</span>
+<span class="c1"># but necessary for initializing the simulation object</span>
+<span class="n">pixel_size</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># Pixel size of the images (in angstroms)</span>
+<span class="n">voltage</span> <span class="o">=</span> <span class="mi">200</span>  <span class="c1"># Voltage (in KV)</span>
+<span class="n">defocus_min</span> <span class="o">=</span> <span class="mf">1.5e4</span>  <span class="c1"># Minimum defocus value (in angstroms)</span>
+<span class="n">defocus_max</span> <span class="o">=</span> <span class="mf">2.5e4</span>  <span class="c1"># Maximum defocus value (in angstroms)</span>
+<span class="n">defocus_ct</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># Number of defocus groups.</span>
+<span class="n">Cs</span> <span class="o">=</span> <span class="mf">2.0</span>  <span class="c1"># Spherical aberration</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Amplitude contrast</span>
+
+<span class="c1"># Initialize simulation object with CTF filters.</span>
+<span class="c1"># Create CTF filters</span>
+<span class="n">filters</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">RadialCTFFilter</span><span class="p">(</span><span class="n">pixel_size</span><span class="p">,</span> <span class="n">voltage</span><span class="p">,</span> <span class="n">defocus</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">Cs</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">defocus_min</span><span class="p">,</span> <span class="n">defocus_max</span><span class="p">,</span> <span class="n">defocus_ct</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">sim5</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span><span class="n">L</span><span class="o">=</span><span class="n">v2</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">num_imgs</span><span class="p">,</span> <span class="n">vols</span><span class="o">=</span><span class="n">v2</span><span class="p">,</span> <span class="n">unique_filters</span><span class="o">=</span><span class="n">filters</span><span class="p">)</span>
+<span class="n">sim5</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># Here we will combine CTF and noise features to our projections.</span>
+<span class="n">sim6</span> <span class="o">=</span> <span class="n">Simulation</span><span class="p">(</span>
+    <span class="n">L</span><span class="o">=</span><span class="n">v2</span><span class="o">.</span><span class="n">resolution</span><span class="p">,</span>
+    <span class="n">n</span><span class="o">=</span><span class="n">num_imgs</span><span class="p">,</span>
+    <span class="n">vols</span><span class="o">=</span><span class="n">v2</span><span class="p">,</span>
+    <span class="n">unique_filters</span><span class="o">=</span><span class="n">filters</span><span class="p">,</span>
+    <span class="n">noise_filter</span><span class="o">=</span><span class="n">custom_noise_filter</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">sim6</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Estimate noise.</span>
+<span class="n">aiso_noise_estimator</span> <span class="o">=</span> <span class="n">AnisotropicNoiseEstimator</span><span class="p">(</span><span class="n">sim6</span><span class="p">)</span>
+
+<span class="c1"># Whiten based on the estimated noise</span>
+<span class="n">sim6</span><span class="o">.</span><span class="n">whiten</span><span class="p">(</span><span class="n">aiso_noise_estimator</span><span class="o">.</span><span class="n">filter</span><span class="p">)</span>
+<span class="n">sim6</span><span class="o">.</span><span class="n">images</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../_images/sphx_glr_lecture_feature_demo_011.png" srcset="../_images/sphx_glr_lecture_feature_demo_011.png" alt="lecture feature demo" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_lecture_feature_demo_012.png" srcset="../_images/sphx_glr_lecture_feature_demo_012.png" alt="lecture feature demo" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_lecture_feature_demo_013.png" srcset="../_images/sphx_glr_lecture_feature_demo_013.png" alt="lecture feature demo" class = "sphx-glr-multi-img"/></li>
+</ul>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  36.603 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-tutorials-lecture-feature-demo-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/56779c8c24ec08c131ee16c43a17e7bb/lecture_feature_demo.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">lecture_feature_demo.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/55452d57f3d18ab15bbabe08f4c3587b/lecture_feature_demo.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">lecture_feature_demo.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="image_class.html" class="btn btn-neutral float-left" title="ASPIRE Image Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="apple_picker.html" class="btn btn-neutral float-right" title="Apple Picker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Princeton University.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
